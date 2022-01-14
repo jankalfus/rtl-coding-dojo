@@ -11,8 +11,8 @@ test("Count is initially zero", () => {
 test('Clicking the "+" button increments the counter', () => {
   render(<Counter />);
 
-  userEvent.click(screen.getByRole("button", { name: "+" }));
-  userEvent.click(screen.getByRole("button", { name: "+" }));
+  clickPlus();
+  clickPlus();
 
   expect(screen.getByText(/2/)).toBeInTheDocument();
 });
@@ -20,9 +20,9 @@ test('Clicking the "+" button increments the counter', () => {
 test('Clicking the "-" button decrements the counter', () => {
   render(<Counter />);
 
-  userEvent.click(screen.getByRole("button", { name: "-" }));
-  userEvent.click(screen.getByRole("button", { name: "-" }));
-  userEvent.click(screen.getByRole("button", { name: "-" }));
+  clickMinus();
+  clickMinus();
+  clickMinus();
 
   expect(screen.getByText(/-3/)).toBeInTheDocument();
 });
@@ -30,9 +30,12 @@ test('Clicking the "-" button decrements the counter', () => {
 test('Combining the "+" and "-" button clicks yields the correct value', () => {
   render(<Counter />);
 
-  userEvent.click(screen.getByRole("button", { name: "+" }));
-  userEvent.click(screen.getByRole("button", { name: "+" }));
-  userEvent.click(screen.getByRole("button", { name: "-" }));
+  clickPlus();
+  clickPlus();
+  clickMinus();
 
   expect(screen.getByText(/1/)).toBeInTheDocument();
 });
+
+const clickPlus = () => userEvent.click(screen.getByRole("button", { name: "+" }));
+const clickMinus = () => userEvent.click(screen.getByRole("button", { name: "-" }));
