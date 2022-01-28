@@ -1,16 +1,20 @@
 import "./Counter.css";
-import {FC, useState} from "react";
+import { FC, useState } from "react";
 
 type Props = {
-  readonly value: number;
-}
+  readonly initialValue?: number;
+};
 
-export const Counter: FC<Props> = ({value}) => {
-  const [clicked, setClicked] = useState(!!value);
+export const Counter: FC<Props> = ({ initialValue = 0 }) => {
+  const [count, setCount] = useState(initialValue <= 0 ? 0 : initialValue);
 
-  return <>
-    Count: {clicked ? 1 : 0}
-    <button onClick={() => setClicked(true)}>+</button>
-    <button disabled={!clicked} onClick={() => setClicked(false)}>-</button>
-  </>;
-}
+  return (
+    <>
+      Count: {count}
+      <button onClick={() => setCount((c) => ++c)}>+</button>
+      <button disabled={!count} onClick={() => setCount((c) => --c)}>
+        -
+      </button>
+    </>
+  );
+};
